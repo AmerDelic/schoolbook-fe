@@ -60,7 +60,7 @@ export class AuthenticationService {
   }
 
   public isLoggedIn(): boolean {
-    this.loadToken();
+    this.loadToken(); // from local storage
     if(this.token) {
       let decodedToken = this.jwtHelper.decodeToken(this.token); 
       if(decodedToken != null) {
@@ -71,7 +71,7 @@ export class AuthenticationService {
       }
       return false;
     }
-    this.logout();
+    this.logout(); // remove from local storage
     return false;
   }
 

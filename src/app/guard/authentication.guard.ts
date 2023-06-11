@@ -1,7 +1,6 @@
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../service/authentication.service';
-import { NotificationType } from '../enum/notification-type.enum';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
