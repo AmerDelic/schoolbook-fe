@@ -1,51 +1,101 @@
-<div class="container">
-  <div class="row mb-2 mt-2 text-center">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-      <h5 class="text-primary">User Management Portal</h5>
-      <small class="text-muted">And more!</small>
-    </div>
-    <div class="col-md-4"></div>
-  </div>
-
-  <nav class="navbar navbar-expand-md navbar-light bg-light rounded">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-      aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav me-auto">
+<!-- Nav bar -->
+<nav class="navbar fixed-top navbar-expand-md">
+  <button class="navbar-toggler" type="button" (click)="toggleCollapse()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="row collapse navbar-collapse" [class.show]="!isCollapsed">
+    <div class="col ms-md-2 me-md-2">
+      <ul class="navbar-nav">
+        <li>
+          <a class="navbar-brand ms-4 text-primary" *ngIf="titleAction$ | async as title">{{ title }}
+            &nbsp;&nbsp;|</a>
+        </li>
         <li class="nav-item">
-          <a class="nav-link nav-link-users active ms-1" data-toggle="tab" href="#users">
+          <a class="nav-link" data-toggle="tab" (click)="changeTitle('Users')">
             <i class="fa fa-users"></i> Users
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link nav-link-settings ms-3" data-toggle="tab" href="#reset-password">
+          <a class="nav-link" data-toggle="tab" (click)="changeTitle('Settings')">
             <i class="fa fa-cogs"></i> Settings
           </a>
         </li>
       </ul>
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link nav-link-welcome move-right me-3" data-toggle="tab" href="#profile">
-            <i class="fa fa-user"></i> Welcome
-          </a>
-        </li>
-      </ul>
-      <form class="form-inline ms-auto ">
-        <div class="row g-2">
-          <div class="col-sm-7">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          </div>
-          <div class="col-sm">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </div>
-        </div>
+    </div>
+    <div class="col ms-md-2 me-md-2">
+      <form>
+        <input class="form-control text-center nav-search-field" type="search" placeholder="Search">
       </form>
     </div>
-  </nav>
+    <div class="col ms-md-2 me-md-2 text-end">
+      <a class="nav-link me-md-4" data-toggle="tab" (click)="changeTitle('Profile')">
+        <i class="fa fa-user"></i> Profile
+      </a>
+    </div>
+  </div>
+</nav>
+<!-- Main Content -->
+<div class="container">
 
+  <div class="tab-content mt-4" id="myTabContent">
 
+    <!-- User Table -->
+    <div class="tab-pane fade show active" id="users">
+      <div class="mb-3 float-end">
+        <div class="btn-group me-2">
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addUserModal">
+            <i class="fa fa-plus"></i> New User
+          </button>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-info">
+            <i class="fas fa-sync fa-spin"></i><i class="fas fa-sync"></i>
+          </button>
+        </div>
+      </div>
+      <table class="table table-hover">
+        <thead class="text-center">
+          <tr class="text-center">
+            <th>Photo</th>
+            <th>User ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center">
+            <td>
+              <img height="40" width="40" src="" alt="" class="rounded-circle img-fluid img-thumbnail" />
+            </td>
+            <td>1234455</td>
+            <td>John</td>
+            <td>Doe</td>
+            <td>johndoe</td>
+            <td>john@mail.com</td>
+            <td>
+              <span class="badge badge-success">Active</span>
+              <span class="badge badge-danger">Inactive</span>
+            </td>
+            <td class="">
+              <div class="btn-group">
+                <button class="btn btn-outline-info">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-outline-danger">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <button [hidden]="true" type="button" data-toggle="modal" data-target="#viewUserModal"></button>
+        <button [hidden]="true" type="button" data-toggle="modal" data-target="#editUserModal"></button>
+      </table>
+    </div>
+  </div>
 </div>
