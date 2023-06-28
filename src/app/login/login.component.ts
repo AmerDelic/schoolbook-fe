@@ -13,18 +13,18 @@ import { HttpHeaders } from '@angular/common/http';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less']
 })
-export class LoginComponent implements OnInit, OnDestroy{
+export class LoginComponent implements OnInit, OnDestroy {
   public showLoading: boolean = false;
   private subscriptions: Subscription[] = [];
 
   constructor(
     private router: Router,
     private authService: AuthenticationService,
-    private toastr: ToastrService)  {}
-    
-  
+    private toastr: ToastrService) { }
+
+
   ngOnInit(): void {
-    if(this.authService.isLoggedIn()) {
+    if (this.authService.isLoggedIn()) {
       this.router.navigateByUrl('/user/management');
       this.toastr.success("Welcome back")
     } else {
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy{
         this.showLoading = false;
       }
     });
-  
+
     if (subscription != null) {
       this.subscriptions.push(subscription);
     }
@@ -63,5 +63,5 @@ export class LoginComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
- 
+
 }

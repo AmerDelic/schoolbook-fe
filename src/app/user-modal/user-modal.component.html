@@ -1,0 +1,61 @@
+<div class="modal-overlay" (click)="onCloseModal()">
+    <div class="modal-container" (click)="stopPropagation($event)">
+        <div class="modal-body">
+            <div class="top-container">
+                <div class="top-section image-container">
+                    <img [src]="user?.profileImageUrl" alt="User Image" class="user-image">
+                </div>
+                <div class="top-section info-container">
+                    <div class="info-item">
+                        <p class="info-label"><strong>ID:</strong> {{ user?.publicId }}</p>
+                    </div>
+                    <div class="info-item">
+                        <p class="info-label"><strong>Name:</strong> {{ user?.firstName }} {{ user?.lastName }}</p>
+                    </div>
+                    <div class="info-item">
+                        <p class="info-label"><strong>Username:</strong> {{ user?.username }}</p>
+                    </div>
+                    <div class="info-item">
+                        <p class="info-label"><strong>Email:</strong> {{ user?.email }}</p>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </div>
+                    <div class="info-item">
+                        <p class="info-label"><strong>Status:&nbsp;</strong>
+                            <span class="badge"
+                                [ngClass]="{'badge-success': user?.enabled, 'badge-danger': !user?.enabled}">
+                                {{ user?.enabled ? 'Active' : 'Inactive' }}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="info-item">
+                <p class="info-label"><strong>Role:</strong> {{ user?.role }}</p>
+            </div>
+            <div class="info-item">
+                <p class="info-label"><strong>Authorities:</strong> {{ user?.authorities }}</p>
+            </div>
+            <div class="info-item">
+                <p class="info-label"><strong>Last Login:</strong> {{ user?.lastLoginDateDisplay }}</p>
+            </div>
+            <div class="info-item">
+                <p class="info-label"><strong>Joined:</strong> {{ user?.createdAt }}</p>
+            </div>
+            <div class="info-item">
+                <p class="info-label">
+                    <span class="badge"
+                        [ngClass]="{'badge-success': user?.nonLocked, 'badge-danger': !user?.nonLocked}">
+                        {{ user?.nonLocked ? 'Unlocked' : 'Locked' }}
+                    </span>
+                </p>
+                <button class="btn"
+                    [ngClass]="{'btn-outline-info' : !user?.nonLocked, 'btn-outline-danger' : user?.nonLocked}"
+                    [title]="user?.nonLocked ? 'Lock' : 'Unlock'">
+                    <i class="fas fa-key" aria-hidden="true">
+                    </i>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

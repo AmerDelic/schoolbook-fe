@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { User } from '../model/user';
+import { UserService } from '../service/user.service';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -7,11 +11,35 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.less']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
 
-  isCollapsed = true;
   private titleSubject = new BehaviorSubject<String>('Users')
   public titleAction$ = this.titleSubject.asObservable();
+  private subscriptions: Subscription[] = [];
+  public users: User[] = [];
+  public refreshing: boolean = false;
+  public isCollapsed = true;
+
+  // Property to hold the selected user data
+  public selectedUser: User | null = null;
+
+  // Function to handle row click event and set the selected user
+  showUserModal(user: User) {
+    this.selectedUser = user;
+  }
+
+  constructor(
+    private userService: UserService,
+    private toastr: ToastrService
+  ) { }
+
+  ngOnInit(): void {
+    this.getUsers(true)
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
 
   public toggleCollapse(): void {
     this.isCollapsed = !this.isCollapsed;
@@ -21,7 +49,22 @@ export class UserComponent implements OnInit {
     this.titleSubject.next(title);
   }
 
-  ngOnInit(): void {
+  public getUsers(showNotification: boolean): void {
+    this.refreshing = true;
+    const subscription = this.userService.getUsers().subscribe({
+      next: (response: User[]) => {
+        this.users = response;
+        this.refreshing = false;
+        this.toastr.info(`Found ${this.users.length} users`);
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        this.toastr.error(errorResponse.error.message);
+        this.refreshing = false;
+      }
+    });
+    if (subscription != null) {
+      this.subscriptions.push(subscription);
+    }
   }
 
 }

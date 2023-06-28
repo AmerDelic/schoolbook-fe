@@ -11,15 +11,15 @@ import { CustomHttpResponse } from '../model/response/custom-http-response';
 export class UserService {
   private host: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  public getUsers(): Observable<User[] | HttpErrorResponse> {
+  public getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.host}/user`);
   }
 
   public addUser(formData: FormData): Observable<User | HttpErrorResponse> {
-    return this.http.post<User>(`${this.host}/user/create`, formData); 
-  } 
+    return this.http.post<User>(`${this.host}/user/create`, formData);
+  }
 
   public updateUser(formData: FormData): Observable<User | HttpErrorResponse> {
     return this.http.put<User>(`${this.host}/user`, formData);
@@ -28,9 +28,9 @@ export class UserService {
   public resetPassword(email: string): Observable<CustomHttpResponse | HttpErrorResponse> {
     return this.http.post<CustomHttpResponse>(`${this.host}/user/reset`, email);
   }
-   
+
   public updateProfileImage(formData: FormData): Observable<HttpEvent<any> | HttpErrorResponse> {
-    return this.http.post<any>(`${this.host}/user/profile/image`, formData, {reportProgress:true, observe:'events'});
+    return this.http.post<any>(`${this.host}/user/profile/image`, formData, { reportProgress: true, observe: 'events' });
   }
 
   public deleteUser(id: string): Observable<CustomHttpResponse | HttpErrorResponse> {
@@ -42,8 +42,8 @@ export class UserService {
   }
 
   public getUsersFromLocalStorage(): User[] | null {
-    let users: string | null = localStorage.getItem('users'); 
-    if(users !== null && users !== '') {
+    let users: string | null = localStorage.getItem('users');
+    if (users !== null && users !== '') {
       return JSON.parse(users);
     }
     return null;

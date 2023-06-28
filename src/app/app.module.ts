@@ -14,13 +14,15 @@ import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
+import { UserModalComponent } from './user-modal/user-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    UserComponent
+    UserComponent,
+    UserModalComponent,
   ],
   imports: [
     FormsModule,
@@ -28,13 +30,13 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot({timeOut: 3000, preventDuplicates: true})
+    ToastrModule.forRoot({ timeOut: 3000, preventDuplicates: true })
   ],
   providers: [
-    AuthenticationGuard,  
-    AuthenticationService, 
-    UserService, 
-   {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    AuthenticationGuard,
+    AuthenticationService,
+    UserService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

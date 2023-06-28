@@ -11,7 +11,7 @@ export class User {
   public lastLoginDateDisplay?: Date;
   public role: string = '';
   public authorities: [] = [];
-  public isEnabled: boolean = false;
-  public isNonLocked: boolean = false;
+  public enabled: boolean = false;
+  public nonLocked: boolean = false;
   public createdAt?: Date;
 }
