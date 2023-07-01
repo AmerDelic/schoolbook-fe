@@ -1,0 +1,46 @@
+<div class="modal-overlay" (click)="onCloseModal()">
+    <div class="modal-container" (click)="stopPropagation($event)">
+        <div class="modal-body">
+            <form class="modal-form" [formGroup]="userForm" (submit)="onSubmit()">
+                <label>
+                    Username:
+                    <input type="text" formControlName="username" name="username" required>
+                    <div *ngIf="userForm.get('username').errors?.required" class="error-message">Username is required
+                    </div>
+                </label>
+                <label>
+                    Password:
+                    <input type="password" formControlName="password" name="password" required>
+                    <div *ngIf="userForm.get('password').errors?.required" class="error-message">Password is required
+                    </div>
+                </label>
+                <label>
+                    First Name:
+                    <input type="text" formControlName="firstName" name="firstName">
+                </label>
+                <label>
+                    Last Name:
+                    <input type="text" formControlName="lastName" name="lastName">
+                </label>
+                <label>
+                    Email:
+                    <input type="email" formControlName="email" name="email" required>
+                    <div *ngIf="userForm.get('email').errors?.required" class="error-message">Email is required</div>
+                </label>
+                <label>
+                    Profile Image URL:
+                    <input type="text" formControlName="profileImageUrl" name="profileImageUrl">
+                </label>
+                <label>
+                    Role:
+                    <input type="text" formControlName="role" name="role" required>
+                    <div *ngIf="userForm.get('role').errors?.required" class="error-message">Role is required
+                    </div>
+                </label>
+                <button type="submit" (click)="onSubmit()" class="btn btn-primary">Create
+                    User
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

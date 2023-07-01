@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { User } from '../model/user';
+import { User } from '../../model/user';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
-  selector: 'app-user-modal',
-  templateUrl: './user-modal.component.html',
-  styleUrls: ['./user-modal.component.less']
+  selector: 'user-info-modal',
+  templateUrl: './user-info-modal.component.html',
+  styleUrls: ['./user-info-modal.component.less'],
 })
-export class UserModalComponent {
+export class UserInfoModalComponent {
 
   @Input() user: User | null = null;
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();

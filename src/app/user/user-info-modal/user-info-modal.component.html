@@ -1,0 +1,61 @@
+<div class="modal-overlay" (click)="onCloseModal()">
+    <div class="modal-container" (click)="stopPropagation($event)">
+        <div class="modal-body">
+            <div class="top-container">
+                <div class="image-container">
+                    <img [src]="user?.profileImageUrl" alt="User Image" class="user-image">
+                </div>
+                <div class="top-info-container">
+                    <div class="grid-container">
+                        <div class="gi-txt-right"><strong>ID:</strong></div>
+                        <div class="gi-txt-left">{{ user?.publicId }}</div>
+                        <div class="gi-txt-right"></div>
+                        <div class="gi-txt-right"><strong>Name:</strong></div>
+                        <div class="gi-txt-left">{{ user?.firstName }}&nbsp;{{ user?.lastName }}</div>
+                        <div class="gi-txt-right"><i class="fa-regular fa-user teal-icon"></i></div>
+                        <div class="gi-txt-right"><strong>Username:</strong></div>
+                        <div class="gi-txt-left">{{ user?.username }}</div>
+                        <div class="gi-txt-right"></div>
+                        <div class="gi-txt-right"><strong>Email:</strong></div>
+                        <div class="gi-txt-left">{{ user?.email }}</div>
+                        <div class="gi-txt-right"><i class="fa-regular fa-envelope teal-icon"></i></div>
+                        <div class="gi-txt-right"><strong>Status:</strong></div>
+                        <div class="gi-txt-left">
+                            <span class="badge"
+                                [ngClass]="{'badge-success': user?.enabled, 'badge-danger': !user?.enabled}">
+                                {{ user?.enabled ? 'Active' : 'Inactive' }}
+                            </span>
+                        </div>
+                        <div class="gi-txt-right"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="top-container">
+                <div class="bottom-info-container">
+                    <div class="grid-container">
+                        <div class="gi-txt-right"><strong>Role:</strong></div>
+                        <div class="gi-txt-left">{{ user?.role?.substring(5) }}</div>
+                        <div class="gi-txt-right"></div>
+                        <div class="gi-txt-right"><strong>Authorities:</strong></div>
+                        <div class="gi-txt-left">{{ user?.authorities }}</div>
+                        <div class="gi-txt-right"></div>
+                        <div class="gi-txt-right"><strong>Last Login:</strong></div>
+                        <div class="gi-txt-left">{{ (user?.lastLoginDateDisplay | date: 'short') || 'n/a'}}</div>
+                        <div class="gi-txt-right"></div>
+                        <div class="gi-txt-right"><strong>Joined:</strong></div>
+                        <div class="gi-txt-left">{{ (user?.createdAt | date: 'short') || 'n/a'}}</div>
+                        <div class="gi-txt-right"></div>
+                        <div class="gi-txt-right">
+                            <span class="badge"
+                                [ngClass]="{'badge-success': user?.nonLocked, 'badge-danger': !user?.nonLocked}">
+                                {{ user?.nonLocked ? 'Unlocked' : 'Locked' }}
+                            </span>
+                        </div>
+                        <div class="gi-txt-left"></div>
+                        <div class="gi-txt-right"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -19,13 +19,15 @@ export class UserComponent implements OnInit, OnDestroy {
   public users: User[] = [];
   public refreshing: boolean = false;
   public isCollapsed = true;
-
-  // Property to hold the selected user data
   public selectedUser: User | null = null;
+  public createNewUser: boolean = false;
 
-  // Function to handle row click event and set the selected user
   showUserModal(user: User) {
     this.selectedUser = user;
+  }
+
+  showNewUserModal() {
+    this.createNewUser = true;
   }
 
   constructor(

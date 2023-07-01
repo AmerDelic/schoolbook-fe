@@ -9,31 +9,30 @@
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    animation: fade-in 0.2s ease-in forwards;
 }
 
 .modal-container {
-    background-color: #fff;
+    background-color: #e7f4f8;
     border-radius: 4px;
     max-width: 500px;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    animation: fade-in 0.2s ease-in forwards;
 }
 
-.modal-title {
-    margin: auto;
-    font-weight: bold;
-    color: #414141;
-}
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
 
-.modal-close {
-    border: none;
-    background-color: transparent;
-    font-size: 20px;
-    cursor: pointer;
+    to {
+        opacity: 1;
+    }
 }
 
 .modal-body {
-    font-family: "Courier New", monospace, serif;
+    font-family: monospace, serif;
     margin-bottom: 20px;
     color: #242424;
 }
@@ -44,38 +43,27 @@
 }
 
 .image-container {
-    flex-basis: calc(100% / 3);
-    border-radius: 50%;
+    flex-basis: calc(100% / 4);
+    border-radius: 20%;
     overflow: hidden;
 }
 
-.info-container {
-    flex-basis: calc(2 * 100% / 3);
-    display: flex;
-    flex-direction: column;
-    justify-content: baseline;
-}
-
-.top-section {
+.top-info-container {
+    flex-basis: calc(3*(100% / 4));
     flex-grow: 1;
     flex-shrink: 1;
-    margin-right: 10px;
 }
 
-// .top-info-item {
-//     margin-bottom: 0;
-// }
+.bottom-info-container {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
 
 .info-item {
     display: flex;
     flex-direction: row;
     margin-bottom: 0;
-    justify-content: space-between;
-}
-
-.info-label {
-    margin: 0;
-    padding: 0;
+    justify-content: baseline;
 }
 
 .user-image {
@@ -96,4 +84,31 @@
 
 .btn-outline-info:hover {
     color: #ffffff;
+}
+
+.teal-icon {
+    color: rgb(0, 195, 255);
+}
+
+.red-icon {
+    color: #dc3545;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-gap: 5px;
+}
+
+
+.gi-txt-right {
+    text-align: end;
+}
+
+.gi-txt-left {
+    text-align: start;
+}
+
+.gi-txt-center {
+    text-align: center;
 }

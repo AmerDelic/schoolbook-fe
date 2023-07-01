@@ -44,7 +44,7 @@
     <div class="tab-pane fade show active" id="users">
       <div class="mb-3 float-end">
         <div class="btn-group me-2">
-          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addUserModal">
+          <button type="button" class="btn btn-info" (click)="showNewUserModal()">
             <i class="fa fa-plus"></i> New User
           </button>
         </div>
@@ -97,6 +97,7 @@
         </tbody>
       </table>
     </div>
-    <app-user-modal *ngIf="selectedUser" [user]="selectedUser" (closeModal)="selectedUser = null"></app-user-modal>
+    <user-info-modal *ngIf="selectedUser" [user]="selectedUser" (closeModal)="selectedUser = null"></user-info-modal>
+    <new-user-modal *ngIf="createNewUser" (closeModal)="createNewUser = false"></new-user-modal>
   </div>
 </div>

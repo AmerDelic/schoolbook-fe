@@ -13,8 +13,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
 import { ToastrModule } from 'ngx-toastr';
-import { FormsModule } from '@angular/forms';
-import { UserModalComponent } from './user-modal/user-modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserInfoModalComponent } from './user/user-info-modal/user-info-modal.component';
+import { NewUserModalComponent } from './user/new-user-modal/new-user-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UserModalComponent } from './user-modal/user-modal.component';
     LoginComponent,
     RegisterComponent,
     UserComponent,
-    UserModalComponent,
+    UserInfoModalComponent,
+    NewUserModalComponent,
   ],
   imports: [
     FormsModule,
@@ -30,6 +32,7 @@ import { UserModalComponent } from './user-modal/user-modal.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot({ timeOut: 3000, preventDuplicates: true })
   ],
   providers: [
