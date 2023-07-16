@@ -17,8 +17,8 @@ export class UserService {
     return this.http.get<User[]>(`${this.host}/user`);
   }
 
-  public addUser(formData: FormData): Observable<User | HttpErrorResponse> {
-    return this.http.post<User>(`${this.host}/user/create`, formData);
+  public addUser(user: User): Observable<User> {
+    return this.http.post<User>(`${this.host}/user/create`, user);
   }
 
   public updateUser(formData: FormData): Observable<User | HttpErrorResponse> {
@@ -33,7 +33,7 @@ export class UserService {
     return this.http.post<any>(`${this.host}/user/profile/image`, formData, { reportProgress: true, observe: 'events' });
   }
 
-  public deleteUser(id: string): Observable<CustomHttpResponse | HttpErrorResponse> {
+  public deleteUser(id: string): Observable<CustomHttpResponse> {
     return this.http.delete<CustomHttpResponse>(`${this.host}/user/${id}`);
   }
 
@@ -48,20 +48,4 @@ export class UserService {
     }
     return null;
   }
-
-  public createUserFormData(loggedInUsername: string, user: User, profileImage: File): FormData {
-    const formData = new FormData();
-    formData.append('currentUsername', loggedInUsername);
-    formData.append('username', user.username);
-    formData.append('password', loggedInUsername);
-    formData.append('firstName', loggedInUsername);
-    formData.append('lastName', loggedInUsername);
-    formData.append('email', loggedInUsername);
-    formData.append('role', loggedInUsername);
-    formData.append('profileImage', profileImage);
-    formData.append('isEnabled', profileImage);
-    formData.append('isNonLocked', profileImage);
-    return formData;
-  }
-
 }

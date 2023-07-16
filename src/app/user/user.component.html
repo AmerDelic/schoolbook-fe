@@ -88,7 +88,7 @@
                 <button class="btn btn-outline-info">
                   <i class="fas fa-edit"></i>
                 </button>
-                <button class="btn btn-outline-danger">
+                <button class="btn btn-outline-danger" (click)="deleteUser(user?.email); $event.stopPropagation()">
                   <i class="fas fa-trash"></i>
                 </button>
               </div>
@@ -98,6 +98,6 @@
       </table>
     </div>
     <user-info-modal *ngIf="selectedUser" [user]="selectedUser" (closeModal)="selectedUser = null"></user-info-modal>
-    <new-user-modal *ngIf="createNewUser" (closeModal)="createNewUser = false"></new-user-modal>
+    <new-user-modal *ngIf="createNewUser" (closeModal)="refreshUsers()"></new-user-modal>
   </div>
 </div>

@@ -4,6 +4,7 @@ import { User } from '../model/user';
 import { UserService } from '../service/user.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { CustomHttpResponse } from '../model/response/custom-http-response';
 
 
 @Component({
@@ -26,6 +27,11 @@ export class UserComponent implements OnInit, OnDestroy {
     this.selectedUser = user;
   }
 
+  refreshUsers() {
+    this.createNewUser = false;
+    this.getUsers(true);
+  }
+
   showNewUserModal() {
     this.createNewUser = true;
   }
@@ -36,7 +42,7 @@ export class UserComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.getUsers(true)
+    this.getUsers(true);
   }
 
   ngOnDestroy(): void {
@@ -66,6 +72,26 @@ export class UserComponent implements OnInit, OnDestroy {
     });
     if (subscription != null) {
       this.subscriptions.push(subscription);
+    }
+  }
+
+  public deleteUser(uniqueField: string | undefined): void {
+    if (uniqueField) {
+      const subscription = this.userService.deleteUser(uniqueField).subscribe({
+        next: (response: CustomHttpResponse) => {
+          this.toastr.info(`${response.message}`);
+          this.getUsers(true);
+        },
+        error: (errorResponse: HttpErrorResponse) => {
+          this.toastr.error(errorResponse.error.message);
+        }
+      })
+      if (subscription != null) {
+        this.subscriptions.push(subscription);
+      }
+      return;
+    } else {
+      this.toastr.error('No user selected');
     }
   }
 

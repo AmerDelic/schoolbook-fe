@@ -1,6 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -8,28 +10,22 @@ import { UserService } from 'src/app/service/user.service';
   templateUrl: './new-user-modal.component.html',
   styleUrls: ['./new-user-modal.component.less']
 })
-export class NewUserModalComponent implements OnInit {
+export class NewUserModalComponent implements OnInit, OnDestroy {
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
-  public userForm: any;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder,
     private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
-    this.userForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      firstName: [''],
-      lastName: [''],
-      email: ['', Validators.required],
-      profileImageUrl: [''],
-      role: ['', Validators.required]
-    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   onCloseModal(): void {
@@ -40,15 +36,18 @@ export class NewUserModalComponent implements OnInit {
     event.stopPropagation();
   }
 
-  onSubmit(): void {
-    console.log('inside outter onSubmit()')
-    if (this.userForm.valid) {
-      console.log('inside inner onSubmit()')
-      this.toastr.info('Should call service at this point')
-      // this.userService.addUser(this.userForm);
-    } else {
-      this.toastr.error('Missing required field')
-    }
+  onSubmit(user: User): void {
+    let subscription = this.userService.addUser(user).subscribe({
+      next: (response: User) => {
+        this.toastr.info(`Created user ${response.username}`);
 
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        this.toastr.error(`${errorResponse.error.message}`);
+      }
+    });
+    if (subscription != null) {
+      this.subscriptions.push(subscription);
+    }
   }
 }
